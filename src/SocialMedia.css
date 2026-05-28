@@ -1,0 +1,71 @@
+.social-container {
+  width: 80%;
+  margin: 3vh;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+.social-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.social-form button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.social-form button:hover {
+  background: #0056b3;
+}
+
+.social-list {
+  margin-top: 20px;
+}
+
+.social-card {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+}
+
+.actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+.actions button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.actions .delete {
+  background: #dc3545;
+  color: #fff;
+}
+
+.actions .delete:hover {
+  background: #b02a37;
+}

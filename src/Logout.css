@@ -1,0 +1,17 @@
+.logout-container {
+  padding: 20px;
+  background: #f9fafb;
+  min-height: calc(100vh - 60px);
+}
+
+.logout-container h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 15px;
+}
+
+.logout-container p {
+  font-size: 16px;
+  color: #444;
+}

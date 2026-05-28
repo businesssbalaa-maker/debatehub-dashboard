@@ -1,0 +1,79 @@
+
+.upi-page-wrapper {
+  
+ 
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+.title {
+  font-size: 28px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+.subtitle {
+  font-size: 22px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+.form-wrapper {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+}
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+.btn-submit {
+  background: #1d4ed8;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+.btn-submit:hover {
+  background: #153cb3;
+}
+.error-text {
+  color: red;
+  margin-bottom: 10px;
+}
+.success-text {
+  color: green;
+  margin-bottom: 10px;
+}
+.upi-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.upi-table th,
+.upi-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+}
+.action-cell {
+  display: flex;
+  gap: 10px;
+}
+.btn-edit {
+  color: blue;
+  cursor: pointer;
+}
+.btn-delete {
+  color: red;
+  cursor: pointer;
+}

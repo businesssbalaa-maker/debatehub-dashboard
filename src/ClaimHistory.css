@@ -1,0 +1,86 @@
+.claim-history-container {
+  padding: 20px;
+  background-color: #f9fafb;
+  min-height: calc(100vh - 60px); /* adjust if header is present */
+  overflow-y: auto;
+  width: 100%;
+}
+
+.claim-history-container h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #111827;
+}
+
+.claim-history-container p {
+  margin-bottom: 20px;
+  color: #555;
+  font-size: 14px;
+}
+
+.search-bar {
+  margin-bottom: 15px;
+}
+
+.search-bar input {
+  width: 280px;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+.search-bar input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px #2563eb;
+}
+
+.filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.filters select {
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filters select:focus {
+  border-color: #2563eb;
+  outline: none;
+  box-shadow: 0 0 0 1px #2563eb;
+}
+
+.claim-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.claim-history-table th,
+.claim-history-table td {
+  padding: 12px 15px;
+  font-size: 14px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.claim-history-table th {
+  background: #f9fafb;
+  font-weight: 600;
+  color: #444;
+}
+
+.claim-history-table tbody tr:hover {
+  background: #f3f4f6;
+}
