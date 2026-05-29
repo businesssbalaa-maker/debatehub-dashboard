@@ -19,6 +19,7 @@ import UPIDashboard from "./UPIDashboard";
 import AuthCard from "./AuthCard";
 import SubordinateManager from "./SubordinateManager";
 import StocksDB from "./StocksDB";
+import QuestionsDashboard from "./QuestionsDashboard";
 
 function App() {
   const [loggedUser, setLoggedUser] = useState(null);
@@ -69,7 +70,7 @@ function App() {
         <Route path="/recharge" element={<ProtectedRoute path="/recharge" element={<Recharge />} />} />
         <Route path="/withdraw" element={<ProtectedRoute path="/withdraw" element={<Withdrawal />} />} />
         <Route path="/WithdrawRequest" element={<ProtectedRoute path="/WithdrawRequest" element={<WithdrawRequest />} />} />
-
+        <Route path ="/Questions" element={<ProtectedRoute path="/Questions" element={<QuestionsDashboard/>}/>}/>
 
         <Route path="/payment-status" element={<ProtectedRoute path="/payment-status" element={<PaymentStatus />} />} />
         <Route path="/QRCodeSubmit" element={<ProtectedRoute path="/QRCodeSubmit" element={<QRCodeSubmit />} />} />

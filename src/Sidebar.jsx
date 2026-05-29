@@ -28,6 +28,7 @@ const menuItems = [
   { path: "/users", label: "All Users", icon: BsPeopleFill },
   // { path: "/CreateDemousers", label: "Create Demo Users", icon: BsPeopleFill },
   // { path: "/demousers", label: "Demo Users", icon: BsPeopleFill },
+  { path: "/Questions", label: "Questions", icon: BsFileEarmarkText },
   { path: "/SubordinateManager", label: "Subordinate Manager", icon: BsPeopleFill },
   { path: "/commissionSettings", label: "Commission Settings", icon: BsPercent },
   { path: "/QRCodeSubmit", label: "Add QR Code", icon: BsWallet2 },

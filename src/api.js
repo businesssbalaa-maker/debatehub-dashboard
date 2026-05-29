@@ -323,37 +323,33 @@ export const forgetAdminPassword = async (phone, newPassword) => {
   return await res.json(); // { success, message, token }
 };
 
+// Add these to your existing src/api.js file
+export const getAllProductsAPI = async () => {
+  const response = await fetch(`${API_BASE_URL}api/products/`);
+  return response.json();
+};
 
-
-
-
-
-export const createProductAPI = async (data) => {
+export const createProductAPI = async (productData) => {
   const response = await fetch(`${API_BASE_URL}api/products`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(productData),
   });
-
   return response.json();
 };
 
-/* ================= UPDATE ================= */
-export const updateProductAPI = async (id, data) => {
+export const updateProductAPI = async (id, updatedData) => {
   const response = await fetch(`${`${API_BASE_URL}api/products`}/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(updatedData),
   });
-
   return response.json();
 };
-
-/* ================= DELETE ================= */
 export const deleteProductAPI = async (id) => {
   const response = await fetch(`${`${API_BASE_URL}api/products`}/${id}`, {
     method: "DELETE",
