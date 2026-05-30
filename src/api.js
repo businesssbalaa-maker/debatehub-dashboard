@@ -11,17 +11,6 @@ export const registerUser = async (userData) => {
     return res;
 };
 
-
-// ✅ 1. Get all users (paginated)
-export const fetchUsers = async (page = 1, limit = 10) => {
-  try {
-    const res = await axios.get(`${API_BASE_URL}api/users/all?page=${page}&limit=${limit}`);
-    return res.data;
-  } catch (err) {
-    console.error("Error fetching users:", err);
-    throw err;
-  }
-};
 export const addWithdrawAmountMenually  = async (phone, Amount,type) => {
   try {
     const res = await axios.post(`${API_BASE_URL}api/users/addWithdrawAmountMenually`, {  phone, Amount,type });
@@ -355,5 +344,23 @@ export const deleteProductAPI = async (id) => {
     method: "DELETE",
   });
 
+  return response.json();
+};
+
+// ==========================================================================
+// 1. GET ALL USERS WITH PAGINATION (GET /api/users/all?page=:page&limit=:limit)
+// ==========================================================================
+export const getAllUsersAPI = async (page = 1, limit = 10) => {
+  const response = await fetch(
+    `${API_BASE_URL}api/users/all?page=${page}&limit=${limit}`
+  );
+  return response.json();
+};
+
+// ==========================================================================
+// 2. GET SINGLE USER DETAILS BY ID (GET /api/users/details/:id)
+// ==========================================================================
+export const getSingleUserDetailAPI = async (id) => {
+  const response = await fetch(`${API_BASE_URL}api/users/details/${id}`);
   return response.json();
 };
