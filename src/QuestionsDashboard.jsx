@@ -41,6 +41,7 @@ export default function QuestionsDashboard() {
   // Infinite Options Tracker Array
   const [optionsList, setOptionsList] = useState(["", ""]); // Default with 2 options inputs
   const [winningOptionId, setWinningOptionId] = useState("");
+  const [rewardPercentage, setRewardPercentage] = useState(0);
 
   const loadAllQuestions = async () => {
     try {
@@ -143,7 +144,7 @@ export default function QuestionsDashboard() {
       const response = await fetch(`${API_BASE_URL}api/products/declare-result/${selectedQuestion._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ optionId: winningOptionId })
+        body: JSON.stringify({ optionId: winningOptionId, rewardPercentage: Number(rewardPercentage) })
       });
       
       const result = await response.json();
@@ -342,6 +343,18 @@ export default function QuestionsDashboard() {
                     <option key={opt._id} value={opt._id}>{opt.optionText}</option>
                   ))}
                 </select>
+              </div>
+              <div className="form-full-row">
+                <label>Reward Percentage</label>
+                <input
+                  type="number"
+                  required
+                  min="0"
+                  max="100"
+                  value={rewardPercentage}
+                  onChange={(e) => setRewardPercentage(Number(e.target.value))}
+                  placeholder="Enter reward percentage"
+                />
               </div>
               <div className="modal-warning-ledger-notice">
                 ⚠️ <b>CRITICAL SYSTEM WARNING:</b> Executing this operational step instantly triggers full balance transfers to winning wallets. This matrix operation cannot be rolled back.
