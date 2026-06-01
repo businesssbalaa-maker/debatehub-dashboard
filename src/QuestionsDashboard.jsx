@@ -26,20 +26,22 @@ export default function QuestionsDashboard() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showSettleModal, setShowSettleModal] = useState(false);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   // Dynamic Form Initializer States
   const [newQuestion, setNewQuestion] = useState({
     question: "",
-    category: "", // Self-entered raw string input
-    subCategory: "", // Self-entered raw string input
-    language: "English", // Strict mapping ["English", "Hindi"]
+    category: "", 
+    subCategory: "", 
+    language: "English", 
     initialThreshold: 50,
     maxInvestment: 20000,
     endTime: ""
   });
 
   // Infinite Options Tracker Array
-  const [optionsList, setOptionsList] = useState(["", ""]); // Default with 2 options inputs
+  const [optionsList, setOptionsList] = useState(["", ""]); 
   const [winningOptionId, setWinningOptionId] = useState("");
   const [rewardPercentage, setRewardPercentage] = useState(0);
 
@@ -64,6 +66,15 @@ export default function QuestionsDashboard() {
     loadAllQuestions();
   }, []);
 
+  const totalPages = Math.max(1, Math.ceil(questions.length / itemsPerPage));
+  const paginatedQuestions = questions.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
+
   // Handler to inject dynamic option inputs
   const addOptionField = () => setOptionsList([...optionsList, ""]);
   const removeOptionField = (index) => {
@@ -79,7 +90,6 @@ export default function QuestionsDashboard() {
   const handleCreateQuestion = async (e) => {
     e.preventDefault();
     
-    // Validate empty option allocations
     if (optionsList.some(opt => !opt.trim())) {
       return alert("Please fill out or remove all blank option input elements.");
     }
@@ -90,7 +100,7 @@ export default function QuestionsDashboard() {
         category: newQuestion.category.trim(),
         subCategory: newQuestion.subCategory.trim(),
         language: newQuestion.language,
-        options: optionsList.map(opt => ({ optionText: opt.trim() })), // Maps any number of fields cleanly
+        options: optionsList.map(opt => ({ optionText: opt.trim() })), 
         initialThreshold: Number(newQuestion.initialThreshold),
         maxInvestment: Number(newQuestion.maxInvestment),
         intervalTime: 0,
@@ -105,7 +115,7 @@ export default function QuestionsDashboard() {
           question: "", category: "", subCategory: "", language: "English",
           initialThreshold: 50, maxInvestment: 20000, endTime: ""
         });
-        setOptionsList(["", ""]); // Reset layout back to default baseline
+        setOptionsList(["", ""]); 
         loadAllQuestions();
       } else {
         alert(result.message || "Failed to instantiate product question template.");
@@ -133,6 +143,7 @@ export default function QuestionsDashboard() {
   const triggerSettleModal = (product) => {
     setSelectedQuestion(product);
     setWinningOptionId("");
+    setRewardPercentage(0);
     setShowSettleModal(true);
   };
 
@@ -188,9 +199,13 @@ export default function QuestionsDashboard() {
             <p>No market contracts entries saved inside the cluster database logs right now.</p>
           </div>
         ) : (
-          <div className="dashboard-linear-tiles-list">
-            {questions.map((item) => (
-              <div key={item._id} className={`dashboard-question-row-tile ${item.status === "disclosed" ? "tile-disclosed-dim" : ""}`}>
+          <>
+            <div className="dashboard-pagination-summary">
+              Showing {paginatedQuestions.length} of {questions.length} market contract entries
+            </div>
+            <div className="dashboard-linear-tiles-list">
+              {paginatedQuestions.map((item) => (
+                <div key={item._id} className={`dashboard-question-row-tile ${item.status === "disclosed" ? "tile-disclosed-dim" : ""}`}>
                 
                 <div className="tile-left-metadata">
                   <div className="tile-badge-strip">
@@ -202,7 +217,6 @@ export default function QuestionsDashboard() {
                   </div>
                   <h3 className="tile-core-question-text">{item.question}</h3>
                   
-                  {/* Dynamic Options Count Indicator Badge */}
                   <div className="tile-options-count-badge">
                     🔢 Pool Stack contains {item.options?.length || 0} Option Nodes
                   </div>
@@ -230,11 +244,34 @@ export default function QuestionsDashboard() {
               </div>
             ))}
           </div>
+
+          <div className="dashboard-pagination-controls">
+            <button
+              type="button"
+              className="pagination-btn"
+              onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span className="pagination-page-indicator">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              type="button"
+              className="pagination-btn"
+              onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+          </div>
+        </>
         )}
       </section>
 
       {/* ==========================================================================
-          MODAL 1: ADD NEW QUESTION (INFINITE OPTIONS & RAW INPUT CATEGORIES)
+          MODAL 1: ADD NEW QUESTION (SCROLL BUG RESOLVED BY INLINE OVERFLOW FIXES)
          ========================================================================== */}
       {showAddModal && (
         <div className="dashboard-modal-backdrop-mesh">
@@ -345,15 +382,15 @@ export default function QuestionsDashboard() {
                 </select>
               </div>
               <div className="form-full-row">
-                <label>Reward Percentage</label>
+                <label>Reward Percentage (%)</label>
                 <input
                   type="number"
                   required
                   min="0"
                   max="100"
                   value={rewardPercentage}
-                  onChange={(e) => setRewardPercentage(Number(e.target.value))}
-                  placeholder="Enter reward percentage"
+                  onChange={(e) => setRewardPercentage(e.target.value)}
+                  placeholder="Enter reward split ratio percentage..."
                 />
               </div>
               <div className="modal-warning-ledger-notice">
