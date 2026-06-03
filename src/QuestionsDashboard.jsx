@@ -387,7 +387,6 @@ export default function QuestionsDashboard() {
                   type="number"
                   required
                   min="0"
-                  max="100"
                   value={rewardPercentage}
                   onChange={(e) => setRewardPercentage(e.target.value)}
                   placeholder="Enter reward split ratio percentage..."
