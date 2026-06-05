@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. Design Token Blue Layout Overhauls (Scroll Locks Eliminated)
+   1. Design Token Blue Layout Overhauls (Fixed Max Width Container Implemented)
    ========================================================================== */
 .blue-light-theme {
   --app-bg: #f8fafc;
@@ -18,20 +18,26 @@
 .dashboard-control-page.blue-light-theme {
   padding: 1rem;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
   background-color: var(--app-bg);
   color: var(--text-main);
   font-family: 'Inter', system-ui, sans-serif;
-  overflow-y: auto; /* Allow full dashboard window layout to scroll freely */
+  overflow-y: auto;
+  width: 100%;
+}
+
+/* 🚀 FIXED CONTAINER: Enforces clean centering on massive monitors */
+.dashboard-app-bounded-container {
+  width: 100%;
+  max-width: 1280px; 
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 @media (min-width: 768px) {
-  .dashboard-control-page.blue-light-theme {
-    padding: 2.5rem;
-    gap: 2.5rem;
-  }
+  .dashboard-control-page.blue-light-theme { padding: 2.5rem; }
+  .dashboard-app-bounded-container { gap: 2.5rem; }
 }
 
 /* ==========================================================================
@@ -76,6 +82,7 @@
   box-shadow: 0 4px 12px rgba(29, 78, 216, 0.15);
   transition: background-color 0.15s;
   width: auto;
+  flex-shrink: 0;
 }
 .dashboard-add-pill-btn:hover { background-color: var(--blue-hover); }
 
@@ -108,7 +115,7 @@
 
 .tile-left-metadata { display: flex; flex-direction: column; align-items: flex-start; gap: 0.625rem; flex-grow: 1; width: 100%; }
 .tile-badge-strip { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
-.badge-category { font-size: 0.6875rem; font-weight: 700; color: #2563eb; text-transform: uppercase; letter-spacing: 0.02em; }
+.badge-category { font-size: 0.6875rem; font-weight: 700; color: #2563eb; text-transform: uppercase; letter-spacing: 0.02em; display: flex; align-items: center; }
 
 .badge-status-pill { font-size: 9px; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 2px; }
 .status-active { color: #16a34a; background-color: rgba(22, 163, 74, 0.08); }
@@ -118,7 +125,7 @@
 .tile-core-question-text { font-size: 0.95rem; font-weight: 700; line-height: 1.5; color: var(--text-main); margin: 0; text-align: left; width: 100%; word-break: break-word; }
 @media (min-width: 768px) { .tile-core-question-text { font-size: 1.05rem; } }
 
-.tile-options-count-badge { font-size: 0.75rem; font-weight: 600; color: var(--blue-primary); background-color: rgba(29, 78, 216, 0.04); padding: 0.25rem 0.625rem; border-radius: 4px; }
+.tile-options-count-badge { font-size: 0.75rem; font-weight: 600; color: var(--blue-primary); background-color: rgba(29, 78, 216, 0.04); padding: 0.25rem 0.625rem; border-radius: 4px; align-self: flex-start; }
 .tile-volume-metrics-footer { display: flex; gap: 1rem; flex-wrap: wrap; font-size: 0.75rem; color: var(--text-muted); width: 100%; justify-content: flex-start; }
 @media (min-width: 640px) { .tile-volume-metrics-footer { gap: 2rem; } }
 .tile-volume-metrics-footer b { color: var(--text-main); }
@@ -179,8 +186,8 @@
   align-items: center; 
   justify-content: center; 
   z-index: 99999; 
-  padding: 0.75rem; /* Safe padding for small phone frames */
-  overflow-y: auto; /* Fallback viewport scroll for modals */
+  padding: 0.75rem; 
+  overflow-y: auto; 
 }
 
 .dashboard-brutalist-modal-box {
@@ -194,15 +201,12 @@
   display: flex; 
   flex-direction: column; 
   gap: 1.25rem;
-  max-height: calc(100vh - 2rem); /* Dynamic maximum viewport constraint boundary */
-  overflow-y: auto; /* Essential: allows form content grid to scroll independently */
+  max-height: calc(100vh - 2rem); 
+  overflow-y: auto; 
 }
 
 @media (min-width: 768px) {
-  .dashboard-brutalist-modal-box {
-    padding: 2.5rem;
-    gap: 1.75rem;
-  }
+  .dashboard-brutalist-modal-box { padding: 2.5rem; gap: 1.75rem; }
 }
 .modal-size-compact { max-width: 32rem; }
 
@@ -239,7 +243,6 @@
   border-color: var(--blue-primary); outline: none; box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.06);
 }
 
-/* Dynamic Option Entry List Layout Configurations (Scrollable Stack Area) */
 .dynamic-options-blueprint-area { background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 1rem; border-radius: 8px; width: 100%; }
 .dynamic-options-headline-row { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 1rem; gap: 0.75rem; }
 .dynamic-options-headline-row label { margin: 0; }
@@ -255,12 +258,11 @@
   flex-direction: column; 
   gap: 0.5rem; 
   width: 100%; 
-  max-height: 12rem; /* Restrict height layout wrapper */
-  overflow-y: auto; /* Enables inner scrolling for extra fields */
+  max-height: 12rem; 
+  overflow-y: auto; 
   padding-right: 6px; 
 }
 
-/* Scrollbar styling for native browser layouts */
 .infinite-inputs-scroller-box::-webkit-scrollbar, 
 .dashboard-brutalist-modal-box::-webkit-scrollbar { width: 5px; }
 .infinite-inputs-scroller-box::-webkit-scrollbar-thumb, 
@@ -294,7 +296,112 @@
 .btn-execute-modal:hover { background-color: var(--blue-hover); }
 .variant-danger-action { background-image: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
 
-/* Utilities */
 .dashboard-loading-spinner-box { padding: 5rem 0; text-align: center; color: var(--text-muted); width: 100%; }
 .dashboard-empty-state-card { background-color: #ffffff; border: 1px solid var(--card-border); padding: 4rem 1rem; text-align: center; border-radius: 6px; color: var(--text-muted); font-size: 0.875rem; width: 100%; }
 .dashboard-error-notice { padding: 1rem; background-color: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; font-size: 0.8125rem; text-align: left; border-radius: 4px; width: 100%; }
+
+/* ==========================================================================
+   6. Probo-Style Classification Filter Menu Bars (Cascading Architecture)
+   ========================================================================== */
+.probo-classification-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.25rem;
+  border-bottom: 1px solid #e2e8f0;
+  width: 100%;
+  scrollbar-width: none; 
+  WebkitOverflowScrolling: touch;
+}
+
+/* 🚀 NEW: Secondary Navigation Stack for Sub-Category Classifications */
+.probo-sub-classification-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.25rem 0.75rem 0.25rem;
+  border-bottom: 1px solid #cbd5e1;
+  width: 100%;
+}
+
+.sub-classification-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.sub-pills-horizontal-scroll {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  width: 100%;
+  scrollbar-width: none;
+  WebkitOverflowScrolling: touch;
+}
+
+.probo-classification-filter-bar::-webkit-scrollbar,
+.sub-pills-horizontal-scroll::-webkit-scrollbar {
+  display: none; 
+}
+
+.probo-tab-pill {
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.5rem 1.15rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.probo-tab-pill:hover {
+  background-color: #f1f5f9;
+  color: var(--text-main);
+  border-color: #94a3b8;
+}
+
+.tab-pill-active {
+  background-color: var(--blue-primary) !important;
+  color: #ffffff !important;
+  border-color: var(--blue-primary) !important;
+  box-shadow: 0 4px 10px rgba(29, 78, 216, 0.15);
+}
+
+/* Sub-Pills Specific Rules Layout */
+.probo-sub-tab-pill {
+  background-color: #f1f5f9;
+  border: 1px solid transparent;
+  color: #475569;
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  white-space: nowrap;
+}
+
+.probo-sub-tab-pill:hover {
+  background-color: #e2e8f0;
+  color: #0f172a;
+}
+
+.sub-tab-pill-active {
+  background-color: #eff6ff !important;
+  color: #1d4ed8 !important;
+  border-color: rgba(29, 78, 216, 0.2) !important;
+  font-weight: 700;
+}
