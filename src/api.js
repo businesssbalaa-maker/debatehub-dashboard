@@ -3,8 +3,8 @@ import axios from "axios";
 // Base URL for the backend API
 // export const API_BASE_URL = "https://tradingback.online/";
 // export const API_BASE_URL2 = "https://tradingback.online";
-export const API_BASE_URL = "https://backend.debatehub.in/";
-export const API_BASE_URL2 = "https://backend.debatehub.in";
+export const API_BASE_URL = "http://localhost:5004/";
+export const API_BASE_URL2 = "http://localhost:5004";
 
 export const registerUser = async (userData) => { 
     const res = await axios.post(`${API_BASE_URL}api/users/register`, userData);
@@ -364,3 +364,62 @@ export const getSingleUserDetailAPI = async (id) => {
   const response = await fetch(`${API_BASE_URL}api/users/details/${id}`);
   return response.json();
 };
+// A1 & A5: Fetch all structured category areas matrices
+export const getAllAreasAPI = async () => {
+  try {
+    const res = await axios.get(`${API_BASE_URL}api/products/areasdata`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// A1: Create a completely new Category root entity container block
+export const createCategoryAreaAPI = async (Category, SubCategoryName) => {
+  try {
+    const res = await axios.post(`${API_BASE_URL}api/products/areas`, { Category, SubCategoryName });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// A2: Append an isolated separate Sub-Category inside an existing Category
+export const appendSubCategoryAPI = async (Category, SubCategoryName) => {
+  try {
+    const res = await axios.post(`${API_BASE_URL}api/products/areas/sub-category`, { Category, SubCategoryName });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// A3: Wipe clean an entire Category (With Cascade Delete automated on all related questions)
+export const purgeCategoryAreaAPI = async (categoryName) => {
+  try {
+    const res = await axios.delete(`${API_BASE_URL}api/products/areas/${categoryName}`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// A4: Wipe clean a distinct Sub-Category layout node (With Cascade Delete on targeted items)
+export const purgeSubCategoryAPI = async (categoryName, subCategoryName) => {
+  try {
+    const res = await axios.delete(`${API_BASE_URL}api/products/areas/${categoryName}/sub-category/${subCategoryName}`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getcatgory= async()=>{
+  try {
+    const res =await axios.get(`${API_BASE_URL}api/products/areas/all`); 
+    return res.data;
+  }
+    catch (error) { 
+      console.log(error)
+    } 
+}
