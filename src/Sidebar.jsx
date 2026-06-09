@@ -23,9 +23,9 @@ import {
 /* 🔥 MENU CONFIG */
 const menuItems = [
 
-  { path: "/", label: "StocksDB", icon: BsGrid1X2Fill },
   
-  { path: "/users", label: "All Users", icon: BsPeopleFill },
+  
+  { path: "/", label: "All Users", icon: BsPeopleFill },
   // { path: "/CreateDemousers", label: "Create Demo Users", icon: BsPeopleFill },
   // { path: "/demousers", label: "Demo Users", icon: BsPeopleFill },
   { path: "/Questions", label: "Questions", icon: BsFileEarmarkText },
@@ -59,7 +59,7 @@ function Sidebar() {
     "/UPISettings",
     "/recharge",
     "/",
-    "/users"
+    
    
   ];
 
