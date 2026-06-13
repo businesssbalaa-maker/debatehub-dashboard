@@ -24,7 +24,7 @@ import {
 /* 🔥 MENU CONFIG */
 const menuItems = [
 
-  { path: "/", label: "StocksDB", icon: BsGrid1X2Fill },
+  
   
   { path: "/users", label: "All Users", icon: BsPeopleFill },
   // { path: "/CreateDemousers", label: "Create Demo Users", icon: BsPeopleFill },

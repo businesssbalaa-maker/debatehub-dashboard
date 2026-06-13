@@ -18,7 +18,7 @@ import CommissionSettings from "./CommissionSettings";
 import UPIDashboard from "./UPIDashboard";
 import AuthCard from "./AuthCard";
 import SubordinateManager from "./SubordinateManager";
-import StocksDB from "./StocksDB";
+
 import QuestionsDashboard from "./QuestionsDashboard";
 import AdminComingSoon from "./AdminComingSoon";
 
@@ -59,7 +59,7 @@ function App() {
 
       <Routes>
       
-        <Route path="/" element={<ProtectedRoute path="/" element={<StocksDB />} />} />
+        <Route path="/" element={<ProtectedRoute path="/" element={<Users isDemoUser={false} />} />} />
        
         <Route path="/users" element={<ProtectedRoute path="/users" element={<Users isDemoUser={false} />} />} />
         {/* <Route path="/CreateDemousers" element={<ProtectedRoute path="/CreateDemousers" element={<DemoAccounts />} />} /> */}

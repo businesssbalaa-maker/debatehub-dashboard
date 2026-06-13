@@ -4,7 +4,7 @@ import {
   createComingSoon,
   updateComingSoon,
   deleteComingSoon,
-} from "./Api";
+} from "./api";
 
 const AdminComingSoon = () => {
   const [items, setItems] = useState([]);
