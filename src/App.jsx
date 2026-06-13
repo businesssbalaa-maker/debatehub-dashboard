@@ -20,6 +20,7 @@ import AuthCard from "./AuthCard";
 import SubordinateManager from "./SubordinateManager";
 import StocksDB from "./StocksDB";
 import QuestionsDashboard from "./QuestionsDashboard";
+import AdminComingSoon from "./AdminComingSoon";
 
 function App() {
   const [loggedUser, setLoggedUser] = useState(null);
@@ -77,6 +78,7 @@ function App() {
 
         
         <Route path="/socialMedia" element={<ProtectedRoute path="/socialMedia" element={<SocialMedia />} />} />
+        <Route path="/ComingSoon" element={<ProtectedRoute path="/ComingSoon" element={<AdminComingSoon />} />} />
 
       
         <Route path="/logout" element={<Logout />} />

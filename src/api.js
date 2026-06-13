@@ -10,7 +10,42 @@ export const registerUser = async (userData) => {
     const res = await axios.post(`${API_BASE_URL}api/users/register`, userData);
     return res;
 };
+export const getComingSoonList = async () => {
+  const res = await axios.get(`${API_BASE_URL}api/coming-soon`);
+  return res.data;
+};
 
+// Get single coming soon item
+export const getComingSoonById = async (id) => {
+  const res = await axios.get(`${API_BASE_URL}api/coming-soon/${id}`);
+  return res.data;
+};
+
+// Create coming soon item
+export const createComingSoon = async (data) => {
+  const res = await axios.post(
+    `${API_BASE_URL}api/coming-soon`,
+    data
+  );
+  return res.data;
+};
+
+// Update coming soon item
+export const updateComingSoon = async (id, data) => {
+  const res = await axios.put(
+    `${API_BASE_URL}api/coming-soon/${id}`,
+    data
+  );
+  return res.data;
+};
+
+// Delete coming soon item
+export const deleteComingSoon = async (id) => {
+  const res = await axios.delete(
+    `${API_BASE_URL}api/coming-soon/${id}`
+  );
+  return res.data;
+};
 export const addWithdrawAmountMenually  = async (phone, Amount,type) => {
   try {
     const res = await axios.post(`${API_BASE_URL}api/users/addWithdrawAmountMenually`, {  phone, Amount,type });

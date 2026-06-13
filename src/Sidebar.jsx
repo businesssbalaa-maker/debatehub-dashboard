@@ -18,6 +18,7 @@ import {
   BsGift,
   BsDice5,
   BsFileEarmarkText,
+  BsCalendarEvent
 } from "react-icons/bs";
 
 /* 🔥 MENU CONFIG */
@@ -29,6 +30,8 @@ const menuItems = [
   // { path: "/CreateDemousers", label: "Create Demo Users", icon: BsPeopleFill },
   // { path: "/demousers", label: "Demo Users", icon: BsPeopleFill },
   { path: "/Questions", label: "Questions", icon: BsFileEarmarkText },
+  { path: "/ComingSoon", label: "Coming Soon", icon: BsCalendarEvent },
+  
   { path: "/SubordinateManager", label: "Subordinate Manager", icon: BsPeopleFill },
   { path: "/commissionSettings", label: "Commission Settings", icon: BsPercent },
   { path: "/QRCodeSubmit", label: "Add QR Code", icon: BsWallet2 },
@@ -58,6 +61,7 @@ function Sidebar() {
     "/QRCodeSubmit",    
     "/UPISettings",
     "/recharge",
+    "/ComingSoon",    
     "/",
     "/users"
    
