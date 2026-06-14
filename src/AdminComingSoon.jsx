@@ -55,11 +55,16 @@ const AdminComingSoon = () => {
     e.preventDefault();
 
     try {
+      const payload = {
+        ...formData,
+        comingDateTime: new Date(formData.comingDateTime).toISOString(),
+      };
+
       if (editingId) {
-        await updateComingSoon(editingId, formData);
+        await updateComingSoon(editingId, payload);
         alert("Updated Successfully");
       } else {
-        await createComingSoon(formData);
+        await createComingSoon(payload);
         alert("Created Successfully");
       }
 
@@ -73,16 +78,17 @@ const AdminComingSoon = () => {
 
   const handleEdit = (item) => {
     setEditingId(item._id);
-
+    const date = new Date(item.comingDateTime);
+    const localDate = new Date(
+      date.getTime() - date.getTimezoneOffset() * 60000,
+    )
+      .toISOString()
+      .slice(0, 16);
     setFormData({
       imageUrl: item.imageUrl,
       title: item.title,
       description: item.description,
-      comingDateTime: item.comingDateTime
-        ? new Date(item.comingDateTime)
-            .toISOString()
-            .slice(0, 16)
-        : "",
+      comingDateTime: item.comingDateTime ? localDate : "",
     });
 
     window.scrollTo({
@@ -92,9 +98,7 @@ const AdminComingSoon = () => {
   };
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete?"
-    );
+    const confirmDelete = window.confirm("Are you sure you want to delete?");
 
     if (!confirmDelete) return;
 
@@ -111,10 +115,7 @@ const AdminComingSoon = () => {
 
   const startIndex = (currentPage - 1) * itemsPerPage;
 
-  const currentItems = items.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const currentItems = items.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <div
@@ -159,17 +160,14 @@ const AdminComingSoon = () => {
             marginBottom: "20px",
           }}
         >
-          {editingId
-            ? "Edit Coming Soon"
-            : "Add Coming Soon"}
+          {editingId ? "Edit Coming Soon" : "Add Coming Soon"}
         </h2>
 
         <form onSubmit={handleSubmit}>
           <div
             style={{
               display: "grid",
-              gridTemplateColumns:
-                "repeat(auto-fit,minmax(280px,1fr))",
+              gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
               gap: "16px",
             }}
           >
@@ -316,18 +314,14 @@ const AdminComingSoon = () => {
                       />
                     </td>
 
-                    <td style={tdStyle}>
-                      {item.title}
-                    </td>
+                    <td style={tdStyle}>{item.title}</td>
+
+                    <td style={tdStyle}>{item.description}</td>
 
                     <td style={tdStyle}>
-                      {item.description}
-                    </td>
-
-                    <td style={tdStyle}>
-                      {new Date(
-                        item.comingDateTime
-                      ).toLocaleString()}
+                      {new Date(item.comingDateTime).toLocaleString("en-IN", {
+                        timeZone: "Asia/Kolkata",
+                      })}
                     </td>
 
                     <td style={tdStyle}>
@@ -339,9 +333,7 @@ const AdminComingSoon = () => {
                         }}
                       >
                         <button
-                          onClick={() =>
-                            handleEdit(item)
-                          }
+                          onClick={() => handleEdit(item)}
                           style={{
                             background: "#16a34a",
                             color: "#fff",
@@ -355,9 +347,7 @@ const AdminComingSoon = () => {
                         </button>
 
                         <button
-                          onClick={() =>
-                            handleDelete(item._id)
-                          }
+                          onClick={() => handleDelete(item._id)}
                           style={{
                             background: "#dc2626",
                             color: "#fff",
@@ -403,43 +393,29 @@ const AdminComingSoon = () => {
           >
             <button
               disabled={currentPage === 1}
-              onClick={() =>
-                setCurrentPage((prev) => prev - 1)
-              }
+              onClick={() => setCurrentPage((prev) => prev - 1)}
               style={paginationBtn}
             >
               Previous
             </button>
 
-            {[...Array(totalPages)].map(
-              (_, index) => (
-                <button
-                  key={index}
-                  onClick={() =>
-                    setCurrentPage(index + 1)
-                  }
-                  style={{
-                    ...paginationBtn,
-                    background:
-                      currentPage === index + 1
-                        ? "#2563eb"
-                        : "#fff",
-                    color:
-                      currentPage === index + 1
-                        ? "#fff"
-                        : "#000",
-                  }}
-                >
-                  {index + 1}
-                </button>
-              )
-            )}
+            {[...Array(totalPages)].map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentPage(index + 1)}
+                style={{
+                  ...paginationBtn,
+                  background: currentPage === index + 1 ? "#2563eb" : "#fff",
+                  color: currentPage === index + 1 ? "#fff" : "#000",
+                }}
+              >
+                {index + 1}
+              </button>
+            ))}
 
             <button
               disabled={currentPage === totalPages}
-              onClick={() =>
-                setCurrentPage((prev) => prev + 1)
-              }
+              onClick={() => setCurrentPage((prev) => prev + 1)}
               style={paginationBtn}
             >
               Next
